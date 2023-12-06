@@ -9,7 +9,7 @@ Purpose: code for coursework 2 of LZSCC211
 
 package Coursework.Rig;
 
-import Coursework.Rig.MemoryManagement.MemoryMgnt;
+import Coursework.Rig.MemoryManagement.*;
 
 public class Rig implements Problem{
   private String name = "Memory Management Coursework";

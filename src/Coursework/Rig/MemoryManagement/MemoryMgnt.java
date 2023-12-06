@@ -12,8 +12,8 @@ public class MemoryMgnt {
     return chunks;
   }
 
-  public void free(int mem){
-    System.out.println("Freeing " + mem + " bytes of memory");
+  public void free(Object o){
+    System.out.println("Freeing " + o + " bytes of memory");
   }
 
   public void malloc(int mem){
