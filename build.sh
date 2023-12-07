@@ -1,3 +1,2 @@
-ls
-javac src/Coursework/Rig/*.java -d /build
-javac src/Coursework/Rig/MemoryManagement/*.java -d /build
+mkdir -p target
+javac -d target/ src/Coursework/Rig/*java src/Coursework/Rig/*/*.java
