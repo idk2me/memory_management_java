@@ -15,128 +15,95 @@ import java.io.IOException;
 
 public class Rig implements Problem {
   private String name = "Memory Management simulator for LZSCC211";
-  private Memory memory;
+  private MemoryMgnt memory = new MemoryMgnt();
   private Problem problem;
 
   public static void main(String[] args) {
+    Rig rig = new Rig();
     System.out.println("""
+        \n========================================\n
         Author: 38879913
         Assignment: Coursework 2
         Brief: Memory management simulator in Java
+        \n========================================\n
             """);
-
-    Rig rig = new Rig();
-    while (true) {
-
-      /*
-       * Taken and adapted from given code examples in workshops
-       * from https://github.lancs.ac.uk/stovold/SCC211_AY23.
-       */
-      System.out.println("\r\n=================");
-      System.out.println("LZSCC211 Coursework 2:" + rig.name());
-      System.out.println("=================\r\n");
-      System.out.println("1. Test 1");
-      System.out.println("2. Test 2");
-      System.out.println("3. Test 3");
-      System.out.println("4. Test 4");
-      System.out.println("5. Test 5");
-      System.out.println("6. Custom inputs");
-      System.out.println("0. Exit");
-
-      System.out.print("Pick a problem: ");
-      Integer selectedOption = 0;
-      BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
-      String line = "";
-      try {
-        line = buffer.readLine();
-        System.out.println();
-        selectedOption = Integer.parseInt(line);
-      } catch (NumberFormatException e) {
-        System.out.println("I don't know what '" + line + "' is, please input a number.");
-        continue;
-      } catch (IOException e) {
-        System.out.println("IOException, quitting...");
-      }
-
-      if (selectedOption == 0) {
-        break;
-      }
-
-      switch (selectedOption) {
-        case 1:
-          rig.print(selectedOption);
-          break;
-        case 2:
-          rig.print(selectedOption);
-          break;
-        case 3:
-          rig.print(selectedOption);
-          break;
-        case 4:
-          rig.print(selectedOption);
-          break;
-        case 5:
-          rig.print(selectedOption);
-          break;
-        case 6:
-          rig.print(selectedOption);
-          break;
-        default:
-          return;
-      }
-
-      System.out.println("Initialising problem: " + rig.problem.name());
-      rig.problem.init();
-      System.out.println(rig.problem.name() + " established.");
-      System.out.println("Running...\r\n");
-    }
+    // rig.memory.print();
+    rig.print(1);
+    rig.print(2);
+    rig.print(3);
+    rig.print(4);
+    rig.print(5);
   }
 
-  public void print(int testCase) {
-    System.out.println("Starting test: " + testCase);
-    System.out.println();
-    switch(testCase){
+  public void print(int n) {
+    switch(n){
       case 1:
         test1();
         break;
       case 2:
         test2();
         break;
-      case 3:
-        test3();
-        break;
-      case 4:
-        test4();
-        break;
-      case 5:
-        test5();
-        break;
-      case 6:
-        custom();
-        break;
-      default:
-        return;
     }
-  }
-
-  public void init() {
-    System.out.println("Initialising...");
-    this.memory = new Memory();
   }
 
   public String name() {
     return name;
   }
 
-  public void test1(){
-    System.out.println("Running test 1...");
-    System.out.println("Requesting 1024 bytes of memory... memory allocated");
-    memory.malloc(1024);
-    System.out.println("Pointer: " + memory.getGuard());
+  public void init() {
   }
-  public void test2(){}
-  public void test3(){}
-  public void test4(){}
-  public void test5(){}
-  public void custom(){}
+
+  public void test1() {
+    System.out.println("\nRunning test number 1");
+    System.out.println("Allocating 1024 bytes...");
+    int headWithData = memory.malloc(1024);
+    System.out.println("Saving name of project to memory...");
+    memory.storeData(headWithData, name());
+    System.out.println("Head of allocated memory: 0x" + Integer.toHexString(headWithData));
+    System.out.println("Allocating 1024 bytes...");
+    int head = memory.malloc(1024);
+    System.out.println("Head of allocated memory: 0x" + Integer.toHexString(head));
+    System.out.println("Retrieving data from memory...");
+    memory.getData(headWithData);
+    // memory.print();
+    // free();
+    try{
+      head = memory.malloc(10240);
+    } catch (OutOfMemoryError e){
+      System.out.println("Out of memory");
+    }
+    System.out.println("Head of allocated memory: 0x" + Integer.toHexString(head));
+  }
+  public void test2() {
+    try {
+      System.out.println("\nRunning test number 2");
+      System.out.println("Allocating 1024 bytes...");
+      int headWithData = memory.malloc(1024);
+      System.out.println("Saving string \"Some random string\" to memory...");
+      memory.storeData(headWithData, "Some random string");
+      System.out.println("Head of allocated memory: 0x" + Integer.toHexString(headWithData));
+      System.out.println("Allocating 1024 bytes...");
+      int head = memory.malloc(1024);
+      System.out.println("Head of allocated memory: 0x" + Integer.toHexString(head));
+      System.out.println("Allocating 1024 bytes...");
+      head = memory.malloc(1024);
+      System.out.println("Head of allocated memory: 0x" + Integer.toHexString(head));
+      System.out.println("Allocating 1024 bytes...");
+      head = memory.malloc(1024);
+      System.out.println("Head of allocated memory: 0x" + Integer.toHexString(head));
+      System.out.println("Allocating 1024 bytes...");
+      head = memory.malloc(1024);
+      System.out.println("Head of allocated memory: 0x" + Integer.toHexString(head));
+      System.out.println("Allocating 1024 bytes...");
+      System.out.println("Getting previously stored memory at location 0x" + Integer.toHexString(headWithData));
+      memory.getData(headWithData);
+      head = memory.malloc(1024);
+      System.out.println("Head of allocated memory: 0x" + Integer.toHexString(head));
+      System.out.println("Allocating 1024 bytes...");
+      head = memory.malloc(1024);
+      System.out.println("Head of allocated memory: 0x" + Integer.toHexString(head));
+    } catch (OutOfMemoryError e) {
+      System.out.println("Out of memory");
+    }
+  }
 }
