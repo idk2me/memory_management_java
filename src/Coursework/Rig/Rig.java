@@ -132,7 +132,7 @@ public class Rig implements Problem {
     System.out.println("Running test 1...");
     System.out.println("Requesting 1024 bytes of memory... memory allocated");
     memory.malloc(1024);
-    System.out.println("Pointer: " + memory.getPointer());
+    System.out.println("Pointer: " + memory.getGuard());
   }
   public void test2(){}
   public void test3(){}
